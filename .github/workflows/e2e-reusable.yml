@@ -65,7 +65,7 @@ jobs:
         run: echo "value=sha-$GITHUB_SHA-time-$(date +"%s")" >> $GITHUB_OUTPUT
 
   install:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     needs: ['prepare']
     container:
       image: cypress/${{ inputs.run-env }}
@@ -99,7 +99,7 @@ jobs:
         run: pnpm cypress:install
 
       - name: Cache build artifacts
-        uses: actions/cache/save@v4.0.0
+        uses: useblacksmith/cache/save@v5.0.2
         with:
           path: |
             /github/home/.cache
@@ -108,7 +108,7 @@ jobs:
           key: ${{ github.sha }}-e2e
 
   testing:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user 1001
@@ -133,7 +133,7 @@ jobs:
       - uses: pnpm/action-setup@v4.0.0
 
       - name: Restore cached pnpm modules
-        uses: actions/cache/restore@v4.0.0
+        uses: useblacksmith/cache/restore@v5.0.2
         with:
           path: |
             /github/home/.cache
