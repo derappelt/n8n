@@ -70,10 +70,6 @@ jobs:
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user root
-    env:
-      BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
-      BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
-      GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
     steps:
       - uses: actions/checkout@v4.1.1
         with:
@@ -109,6 +105,10 @@ jobs:
 
       - name: Cache build artifacts
         uses: useblacksmith/cache/save@v5.0.2
+        env:
+          BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
+          BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
+          GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
         with:
           path: |
             /github/home/.cache
@@ -121,10 +121,6 @@ jobs:
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user root
-    env:
-      BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
-      BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
-      GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
     needs: ['prepare', 'install']
     strategy:
       fail-fast: false
@@ -152,6 +148,10 @@ jobs:
 
       - name: Restore cached pnpm modules
         uses: useblacksmith/cache/restore@v5.0.2
+        env:
+          BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
+          BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
+          GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
         with:
           path: |
             /github/home/.cache
