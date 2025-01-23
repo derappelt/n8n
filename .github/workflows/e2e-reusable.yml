@@ -152,10 +152,6 @@ jobs:
 
       - name: Restore cached pnpm modules
         uses: useblacksmith/cache/restore@v5.0.2
-        env:
-          BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
-          BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
-          GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
         with:
           path: |
             /github/home/.cache
