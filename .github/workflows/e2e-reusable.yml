@@ -102,11 +102,6 @@ jobs:
         working-directory: cypress
         run: pnpm cypress:install
 
-      # Needed by the blacksmith runner to tar/untar
-      # - name: Install GNU tar
-      #   run: |
-      #     apk add --no-cache tar
-
       - name: Cache build artifacts
         uses: useblacksmith/cache/save@v5.0.2
         with:
@@ -145,11 +140,6 @@ jobs:
 
       - uses: pnpm/action-setup@v4.0.0
 
-      # Needed by the blacksmith runner to tar/untar
-      # - name: Install GNU tar
-      #   run: |
-      #     apk add --no-cache tar
-
       - name: Restore cached pnpm modules
         uses: useblacksmith/cache/restore@v5.0.2
         with:
@@ -158,6 +148,7 @@ jobs:
             /github/home/.pnpm-store
             ./packages/**/dist
           key: ${{ github.sha }}-e2e
+          fail-on-cache-miss: true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -184,6 +175,7 @@ jobs:
           E2E_TESTS: true
           COMMIT_INFO_MESSAGE: 🌳 ${{ inputs.branch }} 🖥️ ${{ inputs.run-env }} 🤖 ${{ inputs.user }} 🗃️ ${{ inputs.spec }}
           SHELL: /bin/sh
+          N8N_USER_FOLDER: /home/n8n
 
   # Check if all tests passed and set the output variable
   check_testing_matrix:
