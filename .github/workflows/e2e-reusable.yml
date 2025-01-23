@@ -70,6 +70,10 @@ jobs:
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user root
+    env:
+      BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
+      BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
+      GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
     steps:
       - uses: actions/checkout@v4.1.1
         with:
@@ -98,6 +102,11 @@ jobs:
         working-directory: cypress
         run: pnpm cypress:install
 
+      # Needed by the blacksmith runner to tar/untar
+      - name: Install GNU tar
+        run: |
+          apk add --no-cache tar
+
       - name: Cache build artifacts
         uses: useblacksmith/cache/save@v5.0.2
         with:
@@ -112,6 +121,10 @@ jobs:
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user root
+    env:
+      BLACKSMITH_CACHE_TOKEN: ${{ env.BLACKSMITH_CACHE_TOKEN }}
+      BLACKSMITH_CACHE_URL: ${{ env.BLACKSMITH_CACHE_URL }}
+      GITHUB_REPO_NAME: ${{ env.GITHUB_REPO_NAME }}
     needs: ['prepare', 'install']
     strategy:
       fail-fast: false
@@ -131,6 +144,11 @@ jobs:
           git checkout FETCH_HEAD
 
       - uses: pnpm/action-setup@v4.0.0
+
+      # Needed by the blacksmith runner to tar/untar
+      - name: Install GNU tar
+        run: |
+          apk add --no-cache tar
 
       - name: Restore cached pnpm modules
         uses: useblacksmith/cache/restore@v5.0.2
