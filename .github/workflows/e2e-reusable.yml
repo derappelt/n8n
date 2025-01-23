@@ -99,9 +99,9 @@ jobs:
         run: pnpm cypress:install
 
       # Needed by the blacksmith runner to tar/untar
-      - name: Install GNU tar
-        run: |
-          apk add --no-cache tar
+      # - name: Install GNU tar
+      #   run: |
+      #     apk add --no-cache tar
 
       - name: Cache build artifacts
         uses: useblacksmith/cache/save@v5.0.2
@@ -142,9 +142,9 @@ jobs:
       - uses: pnpm/action-setup@v4.0.0
 
       # Needed by the blacksmith runner to tar/untar
-      - name: Install GNU tar
-        run: |
-          apk add --no-cache tar
+      # - name: Install GNU tar
+      #   run: |
+      #     apk add --no-cache tar
 
       - name: Restore cached pnpm modules
         uses: useblacksmith/cache/restore@v5.0.2
