@@ -65,7 +65,7 @@ jobs:
         run: echo "value=sha-$GITHUB_SHA-time-$(date +"%s")" >> $GITHUB_OUTPUT
 
   install:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     needs: ['prepare']
     container:
       image: cypress/${{ inputs.run-env }}
@@ -112,7 +112,7 @@ jobs:
           key: ${{ github.sha }}-e2e
 
   testing:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user 1000:1000
