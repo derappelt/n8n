@@ -9,7 +9,7 @@ on:
 jobs:
   install-and-build:
     name: Install & Build
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4.1.1
         with:
