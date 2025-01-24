@@ -121,7 +121,7 @@ export class Workflow {
 
 		this.active = parameters.active || false;
 
-		this.staticData = ObservableObject.create(parameters.staticData || {}, undefined, {
+		this.staticData = ObservableObject.create(parameters.staticData ?? {}, undefined, {
 			ignoreEmptyOnFirstChild: true,
 		});
 
