@@ -34,7 +34,7 @@ on:
 jobs:
   unit-test:
     name: Unit tests
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     env:
       TURBO_FORCE: ${{ inputs.ignoreTurboCache }}
       COVERAGE_ENABLED: ${{ inputs.collectCoverage }}
@@ -45,7 +45,7 @@ jobs:
 
       - run: corepack enable
       - name: Use Node.js ${{ inputs.nodeVersion }}
-        uses: actions/setup-node@v4.0.2
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: ${{ inputs.nodeVersion }}
           cache: pnpm
