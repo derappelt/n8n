@@ -27,6 +27,9 @@ jobs:
       - name: Setup build cache
         uses: rharkor/caching-for-turbo@v1.5
 
+      - name: DEBUG TODO REMOVE
+        run: rm -rf ./**/.turbo
+
       - name: Build
         run: pnpm build
 
